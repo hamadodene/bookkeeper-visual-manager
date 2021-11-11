@@ -43,7 +43,6 @@ public class ApplicationConfig extends Application {
         resources.add(org.bkvm.api.resources.LedgersResource.class);
         resources.add(org.bkvm.api.resources.LoginResource.class);
         resources.add(org.bkvm.api.resources.SystemStatusResource.class);
-
     }
 
 }
