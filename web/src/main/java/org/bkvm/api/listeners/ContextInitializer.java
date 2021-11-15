@@ -91,6 +91,11 @@ public class ContextInitializer implements ServletContextListener {
                 // launch reload in background
                 bookkeeperManager.refreshMetadataCache();
             }
+
+            boolean enableAutorecoveryFunctions = Boolean.parseBoolean(configStore.getProperty(ServerConfiguration.PROPERTY_BK_ENABLE_AUTORECOVERY_FUNCTIONS, configStore.getProperty("enableAutorecoveryFunctions", "true")));
+            context.log("enableAutorecoveryFunctions=" + enableAutorecoveryFunctions);
+            bookkeeperManager.setIsEnableAutorecoveryFunctions(enableAutorecoveryFunctions);
+
         } catch (Throwable ex) {
             ex.printStackTrace();
             throw new RuntimeException("Unexpected error occurred " + ex, ex);
@@ -151,7 +156,7 @@ public class ContextInitializer implements ServletContextListener {
         try {
             Properties properties = new Properties();
 
-                String metadataServiceUri = System.getProperty("bookkeeper.visual.manager.metadataServiceUri");
+            String metadataServiceUri = System.getProperty("bookkeeper.visual.manager.metadataServiceUri");
             if (metadataServiceUri != null) {
                 properties.put(ServerConfiguration.PROPERTY_BOOKKEEPER_METADATA_SERVICE_URI, metadataServiceUri);
                 return new PropertiesConfigurationStore(properties);

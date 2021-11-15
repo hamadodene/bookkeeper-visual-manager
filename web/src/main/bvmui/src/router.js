@@ -7,6 +7,7 @@ import Ledgers from '@/views/Ledgers'
 import Clusters from '@/views/Clusters'
 import Login from '@/views/Login'
 import SystemStatus from '@/views/SystemStatus'
+import AdvancedOperations from '@/views/AdvancedOperations'
 
 import store from './store'
 
@@ -75,6 +76,14 @@ const router = new Router({
             meta: {
                 title: "Bookie Ledgers: ${bookieId}",
                 type: "bookie"
+            }
+        },
+        {
+            path: '/advancedoperations',
+            name: 'Advanced Operations',
+            component: AdvancedOperations,
+            meta: {
+                title: "Advanced Operations"
             }
         },
         {

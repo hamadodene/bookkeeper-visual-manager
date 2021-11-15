@@ -89,6 +89,7 @@ public class BookiesResource extends AbstractBookkeeperResource {
             b.setFreeDiskSpace(bookie.getFreeDiskspace());
             b.setTotalDiskSpace(bookie.getTotalDiskspace());
             b.setLastScan(bookie.getScanTime().getTime());
+            b.setIsEnableAutorecoveryFunctions(getBookkeeperManager().isEnableAutorecoveryFunctions());
             Bookie.BookieInfo parsedBookieInfo = Bookie.parseBookieInfo(bookie.getBookieInfo());
             Map<String, String> endpoints = new HashMap<>();
             parsedBookieInfo.getEndpoints().forEach(info -> {
@@ -118,6 +119,7 @@ public class BookiesResource extends AbstractBookkeeperResource {
         private String clusterName;
         private String bookieId;
         private String description;
+        private Boolean isEnableAutorecoveryFunctions;
 
         private long freeDiskSpace;
         private long totalDiskSpace;

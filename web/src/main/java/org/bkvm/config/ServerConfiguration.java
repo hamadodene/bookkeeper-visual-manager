@@ -49,4 +49,9 @@ public final class ServerConfiguration {
     public static final String PROPERTY_BK_METADATA_DESCRIPTION = "metadata.ledgerdescription";
     public static final String PROPERTY_BK_METADATA_DESCRIPTION_DEFAULT = "tablespacename,pulsar/,application";
 
+    /**
+     * Enable autorecovery functions
+     */
+    public static final String PROPERTY_BK_ENABLE_AUTORECOVERY_FUNCTIONS = "enableAutorecoveryFunctions";
+
 }

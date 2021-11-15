@@ -35,6 +35,7 @@ export default {
                 { icon: "mdi-memory", text: "Ledgers", path: "/ledgers" },
                 { icon: "mdi-cached", text: "System", path: "/systemstatus" },
                 { icon: "mdi-lan-connect", text: "Clusters", path: "/clusters" },
+                { icon: "mdi-wrench", text: "Advanced operations", path: "/advancedoperations" }
             ]
         };
     },

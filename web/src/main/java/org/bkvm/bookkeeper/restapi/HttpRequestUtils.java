@@ -22,6 +22,7 @@ package org.bkvm.bookkeeper.restapi;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import org.apache.http.HttpResponse;
@@ -36,9 +37,9 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpRequestUtils {
 
-    public static BookieApiResponse sendGetRequest(String httpServerUri, String path) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
+    public static BookieApiResponse sendGetRequest(String httpServerUri, String path, List parameters) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
         BookieApiResponse gcResponse;
-        URI uri = buildUri(httpServerUri, path);
+        URI uri = buildUri(httpServerUri, path, parameters);
         HttpGet request = new HttpGet(uri);
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             try (CloseableHttpResponse response = httpClient.execute(request)) {
@@ -48,9 +49,9 @@ public class HttpRequestUtils {
         return gcResponse;
     }
 
-    public static BookieApiResponse sendPostRequest(String httpServerUri, String path, Map<String, String> headers) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
+    public static BookieApiResponse sendPostRequest(String httpServerUri, String path, Map<String, String> headers, List parameters) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
         BookieApiResponse gcResponse;
-        URI uri = buildUri(httpServerUri, path);
+        URI uri = buildUri(httpServerUri, path, parameters);
         HttpPost request = new HttpPost(uri);
         if (headers != null) {
             headers.forEach((k, v) -> request.addHeader(k, v));
@@ -63,9 +64,9 @@ public class HttpRequestUtils {
         return gcResponse;
     }
 
-    public static BookieApiResponse sendPutRequest(String httpServerUri, String path, Map<String, String> headers) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
+    public static BookieApiResponse sendPutRequest(String httpServerUri, String path, Map<String, String> headers, List parameters) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
         BookieApiResponse gcResponse;
-        URI uri = buildUri(httpServerUri, path);
+        URI uri = buildUri(httpServerUri, path, parameters);
         HttpPut request = new HttpPut(uri);
         if (headers != null) {
             headers.forEach((k, v) -> request.addHeader(k, v));
@@ -78,14 +79,18 @@ public class HttpRequestUtils {
         return gcResponse;
     }
 
-    private static URI buildUri(String httpServerUri, String path) throws URISyntaxException {
+    private static URI buildUri(String httpServerUri, String path, List parameters) throws URISyntaxException {
         URI uri = new URI(httpServerUri);
-        return new URIBuilder()
+        URIBuilder uriBuilder = new URIBuilder()
                 .setScheme(uri.getScheme())
                 .setHost(uri.getHost())
                 .setPort(uri.getPort())
-                .setPath(path)
-                .build();
+                .setPath(path);
+
+        if (parameters != null) {
+            uriBuilder.addParameters(parameters);
+        }
+        return uriBuilder.build();
     }
 
     private static BookieApiResponse getResponse(HttpResponse response) throws IOException {

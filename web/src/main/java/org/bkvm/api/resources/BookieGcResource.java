@@ -45,7 +45,7 @@ public class BookieGcResource extends AbstractBookkeeperResource {
     @Produces(MediaType.APPLICATION_JSON)
     public BookieApiResponse getGCDeatails(@QueryParam("clusterId") int clusterId, @QueryParam("bookieId") String bookieId) throws URISyntaxException, IOException, InterruptedException, ExecutionException {
         String bookieHttpServerUri = getBookkeeperManager().getHttpServerEndpoint(clusterId, bookieId);
-        return HttpRequestUtils.sendGetRequest(bookieHttpServerUri, BookkeeperApiEndpoint.BOOKIE_GC_DETAIL);
+        return HttpRequestUtils.sendGetRequest(bookieHttpServerUri, BookkeeperApiEndpoint.BOOKIE_GC_DETAIL, null);
     }
 
     @GET
@@ -55,7 +55,7 @@ public class BookieGcResource extends AbstractBookkeeperResource {
     @Produces(MediaType.APPLICATION_JSON)
     public BookieApiResponse triggerGC(@QueryParam("clusterId") int clusterId, @QueryParam("bookieId") String bookieId) throws URISyntaxException, IOException, InterruptedException, ExecutionException {
         String bookieHttpServerUri = getBookkeeperManager().getHttpServerEndpoint(clusterId, bookieId);
-        return HttpRequestUtils.sendPutRequest(bookieHttpServerUri, BookkeeperApiEndpoint.BOOKIE_GC, null);
+        return HttpRequestUtils.sendPutRequest(bookieHttpServerUri, BookkeeperApiEndpoint.BOOKIE_GC, null, null);
     }
 
     @GET
@@ -65,7 +65,7 @@ public class BookieGcResource extends AbstractBookkeeperResource {
     @Produces(MediaType.APPLICATION_JSON)
     public BookieApiResponse gcStatus(@QueryParam("clusterId") int clusterId, @QueryParam("bookieId") String bookieId) throws IOException, InterruptedException, URISyntaxException, ExecutionException {
         String bookieHttpServerUri = getBookkeeperManager().getHttpServerEndpoint(clusterId, bookieId);
-        return HttpRequestUtils.sendGetRequest(bookieHttpServerUri, BookkeeperApiEndpoint.BOOKIE_GC);
+        return HttpRequestUtils.sendGetRequest(bookieHttpServerUri, BookkeeperApiEndpoint.BOOKIE_GC, null);
     }
 
 }

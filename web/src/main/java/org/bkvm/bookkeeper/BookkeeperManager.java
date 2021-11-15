@@ -90,6 +90,7 @@ public class BookkeeperManager implements AutoCloseable {
     private final MetadataCache metadataCache;
     private final LedgerMetadataSerDe serDe = new LedgerMetadataSerDe();
     private final ScheduledExecutorService refreshThread;
+    private boolean isEnableAutorecoveryFunctions = true;
 
     public void ensureDefaultCluster(String metadataServiceUri) throws BookkeeperManagerException {
         Cluster exists = metadataCache.listClusters().stream().filter(c -> c.getName().equals("default")).findFirst().orElse(null);
@@ -103,6 +104,14 @@ public class BookkeeperManager implements AutoCloseable {
         cluster.setMetadataServiceUri(metadataServiceUri);
         cluster.setConfiguration("");
         updateCluster(cluster);
+    }
+
+    public void setIsEnableAutorecoveryFunctions(boolean isEnableAutorecoveryFunctions) {
+        this.isEnableAutorecoveryFunctions = isEnableAutorecoveryFunctions;
+    }
+
+    public boolean isEnableAutorecoveryFunctions() {
+       return isEnableAutorecoveryFunctions;
     }
 
     private Bookie.BookieInfo convertBookieServiceInfo(BookieServiceInfo bookieServiceInfo) {

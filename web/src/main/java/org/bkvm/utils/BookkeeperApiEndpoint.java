@@ -27,4 +27,10 @@ public class BookkeeperApiEndpoint {
 
     public static final String BOOKIE_GC = "/api/v1/bookie/gc";
     public static final String BOOKIE_GC_DETAIL = "/api/v1/bookie/gc_details";
+    public static final String BOOKIE_AUTORECOVERY = "/api/v1/autorecovery/bookie";
+    public static final String BOOKIE_LIST_UNDERREPLICATED = "/api/v1/autorecovery/list_under_replicated_ledger";
+    public static final String BOOKIE_DECOMMISSION = "/api/v1/autorecovery/decommission";
+    public static final String BOOKIE_TRIGGER_AUDIT = "/api/v1/autorecovery/trigger_audit";
+    public static final String BOOKIE_WHO_IS_AUDITOR = "/api/v1/autorecovery/who_is_auditor";
+    public static final String BOOKIE_LOST_RECOVERY_DELAY = "/api/v1/autorecovery/lost_bookie_recovery_delay";
 }
